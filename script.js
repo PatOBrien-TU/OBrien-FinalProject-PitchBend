@@ -59,6 +59,15 @@ dropIns.addEventListener("change", function () {
 dropOuts.addEventListener("change", function () {
   // Change the output device based on the user's selection in the dropdown.
   // The '.channels[1]' specifies that the script should use the first channel of the selected output device.
-  // MIDI channels are often used to separate messages for different instruments or sounds.
   myOutput = WebMidi.outputs[dropOuts.value].channels[1];
+});
+
+// Get the pitch bend slider from the HTML document by its ID.
+let pitchBendSlider = document.getElementById("pitchBendSlider");
+
+// Listen for changes in the pitch bend slider.
+pitchBendSlider.addEventListener("input", function (e) {
+  // When the pitch bend slider is moved, update the pitch bend amount.
+  let pitchBendAmount = e.target.value / 8191;
+  myOutput.sendPitchBend(pitchBendAmount);
 });
